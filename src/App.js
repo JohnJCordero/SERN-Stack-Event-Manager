@@ -8,6 +8,8 @@ import AddEvent from "./components/add-event.component";
 import Register from "./components/register";
 import Login from './components/login'
 import Users from "./components/user"
+import Admins from './components/admin'
+import Superadmin from "./components/superadmin";
 
 class App extends Component {
   render() {
@@ -28,6 +30,16 @@ class App extends Component {
                       Make An Event
                   </Link>
               </li>
+                <li className="nav-item">
+                    <Link to={"/admin"} className="nav-link">
+                        Admin
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <Link to={"/super"} className="nav-link">
+                        Super Admin
+                    </Link>
+                </li>
 
             </div>
 
@@ -52,6 +64,9 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/users" component={Users} />
+              <Route exact path="/admin" component={Admins} />
+              <Route exact path="/super" component={Superadmin} />
+
 
 
             </Switch>
