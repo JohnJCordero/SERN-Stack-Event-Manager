@@ -41,12 +41,9 @@ export default class Login extends Component {
             .then(response => {
                 if(response.status === (200))
                      window.location.href = "/add"
-                this.setState({
-                    username: response.data.username,
-                    password: response.data.password,
-                });
+
                 console.log(response.data);
-                localStorage.setItem("username", response.data.username);
+                localStorage.setItem("userid", response.data.id);
             })
             .catch(e => {
 

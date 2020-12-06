@@ -4,7 +4,7 @@ const Op = db.Sequelize.OP;
 
 // Create and Save a new event
 exports.create = (req, res) => {
-
+console.log(req)
   if (!req.body.name) {
     res.status(400).send({ message: "Event cannot be empty!" });
      return;
@@ -12,6 +12,7 @@ exports.create = (req, res) => {
 
     const events = {  // Using "Event" caused reserved word issue.
         name: req.body.name,
+        userid: req.body.userid,
         description: req.body.description,
         url: req.body.url,
         start: req.body.start,
@@ -34,8 +35,8 @@ exports.create = (req, res) => {
 
 // Retrieve all
 exports.findAll = (req, res) => {
-    const name = req.query.name;
-    const condition = name ? {name: {[Op.like]: `%${name}%`}} : null;
+    const userid = req.query.userid;
+    const condition = userid ? {userid: {[Op.like]: `%${userid}%`}} : null;
 
     Event.findAll({ where: condition })
         .then(data => {

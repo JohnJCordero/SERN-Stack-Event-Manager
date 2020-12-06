@@ -4,6 +4,9 @@ module.exports = (sequelize, Sequelize) => {
         name: {
             type: Sequelize.STRING
         },
+        userid: {
+          type: Sequelize.INTEGER
+        },
 
         description: {
             type: Sequelize.STRING
@@ -23,6 +26,9 @@ module.exports = (sequelize, Sequelize) => {
         },
 
         address: {
+            type: Sequelize.STRING
+        },
+        city: {
             type: Sequelize.STRING
         },
         approved: {

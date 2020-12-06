@@ -7,19 +7,19 @@ import {Link, Route, Switch} from 'react-router-dom'
 import AddEvent from "./components/add-event.component";
 import Register from "./components/register";
 import Login from './components/login'
-
+import Users from "./components/user"
 
 class App extends Component {
   render() {
     return (
         <div>
           <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <a href="/events" className="navbar-brand">
+            <a href="/users" className="navbar-brand">
               Event Manager
             </a>
-            <div className="navbar-nav mr-auto">
+            <div className="navbar-nav ">
               <li className="nav-item">
-                  <Link to={"/events"} className="nav-link">
+                  <Link to={"/users"} className="nav-link">
                       Event List
                   </Link>
               </li>
@@ -31,7 +31,7 @@ class App extends Component {
 
             </div>
 
-              <div className="navbar-nav mr-auto">
+              <div className="navbar-nav ml-auto">
                   <li className="nav-item">
                       <Link to={"/register"} className="nav-link">
                           Register
@@ -51,6 +51,8 @@ class App extends Component {
               <Route exact path="/add" component={AddEvent} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
+              <Route exact path="/users" component={Users} />
+
 
             </Switch>
           </div>

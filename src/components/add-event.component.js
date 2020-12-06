@@ -16,6 +16,7 @@ export default class AddEvent extends Component {
 
         this.state = {
             id: null,
+            userid:"",
             name: "",
             description: "",
             url:"",
@@ -63,6 +64,7 @@ export default class AddEvent extends Component {
     saveEvent() {
         const data = {
             name: this.state.name,
+            userid: localStorage.getItem('userid'),
             description: this.state.description,
             url: this.state.url,
             start: this.state.start,
@@ -74,6 +76,7 @@ export default class AddEvent extends Component {
             .then(response => {
                 this.setState({
                     id: response.data.id,
+                    userid: response.data.userid,
                     name: response.data.name,
                     description: response.data.description,
                     url : response.data.url,
@@ -108,9 +111,7 @@ export default class AddEvent extends Component {
                 {this.state.submitted ? (
                     <div>
                         <h4>You submitted successfully!</h4>
-                        <button className="btn btn-success" onClick={this.newEvent}>
-                            Add
-                        </button>
+
                     </div>
                 ) : (
                     <div>
