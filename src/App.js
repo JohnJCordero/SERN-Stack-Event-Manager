@@ -7,6 +7,8 @@ import {Link, Route, Switch} from 'react-router-dom'
 import AddEvent from "./components/add-event.component";
 import Register from "./components/register";
 import Login from './components/login'
+import Admin from './components/admin'
+import SuperAdmin from './components/superadmin'
 
 
 class App extends Component {
@@ -22,6 +24,11 @@ class App extends Component {
                   <Link to={"/events"} className="nav-link">
                       Event List
                   </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/admin"} className="nav-link">
+                  Admin
+                </Link>
               </li>
               <li className="nav-item">
                   <Link to={"/add"} className="nav-link">
@@ -51,6 +58,7 @@ class App extends Component {
               <Route exact path="/add" component={AddEvent} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
+              <Route exact path="/admin" component={Admin} />
 
             </Switch>
           </div>
