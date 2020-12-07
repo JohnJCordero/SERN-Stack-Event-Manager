@@ -66,52 +66,109 @@ export default class Register extends Component {
 
     render() {
         return (
-            <div className="submit-form">
-                    <div>
-                        <div className="form-group">
-                            <label htmlFor="username">Enter Username</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="username"
-                                required
-                                value={this.state.username}
-                                onChange={this.onChangeUsername}
-                                name="username"
-                            />
-                        </div>
 
-                        <div className="form-group">
-                            <label htmlFor="password">Enter Password</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="password"
-                                required
-                                value={this.state.password}
-                                onChange={this.onChangePassword}
-                                name="password"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="confirm">Confirm Password</label>
-                            <input
-                                type="confirm"
-                                className="form-control"
-                                id="confirm"
-                                required
-                                value={this.state.confirm}
-                                onChange={this.onChangeConfirm}
-                                name="confirm"
-                            />
-                        </div>
+            <div style={styles.container}>
+                <form>
+                <h3>Register</h3>
 
-                        <button onClick={this.register} className="btn btn-success">
-                            Register
-                        </button>
-                    </div>
+                <div className="form-group">
+                    <label>Username</label>
+                    <input 
+                        type="text" 
+                        className="form-control" 
+                        placeholder="Enter username" 
+                        id="username"
+                        required
+                        value={this.state.username}
+                        onChange={this.onChangeUsername}
+                        name="username"
+                    />
+                </div>
 
+                <div className="form-group">
+                    <label>Password</label>
+                    <input 
+                        type="password" 
+                        className="form-control" 
+                        placeholder="Enter password" 
+                        id="password"
+                        value={this.state.password}
+                        onChange={this.onChangePassword}
+                    />
+                </div>
+
+                <button onClick={this.register} type="submit" className="btn btn-primary btn-block">Submit</button>
+               
+                <p className="text-right">
+                    Already a user? <a href="/login">Login.</a>
+                </p>
+
+            </form>
             </div>
+
+            // <div className="submit-form">
+            //         <div>
+            //             <div className="form-group">
+            //                 <label htmlFor="username">Enter Username</label>
+            //                 <input
+            //                     type="text"
+            //                     className="form-control"
+            //                     id="username"
+            //                     required
+            //                     value={this.state.username}
+            //                     onChange={this.onChangeUsername}
+            //                     name="username"
+            //                 />
+            //             </div>
+
+            //             <div className="form-group">
+            //                 <label htmlFor="password">Enter Password</label>
+            //                 <input
+            //                     type="text"
+            //                     className="form-control"
+            //                     id="password"
+            //                     required
+            //                     value={this.state.password}
+            //                     onChange={this.onChangePassword}
+            //                     name="password"
+            //                 />
+            //             </div>
+            //             <div className="form-group">
+            //                 <label htmlFor="confirm">Confirm Password</label>
+            //                 <input
+            //                     type="confirm"
+            //                     className="form-control"
+            //                     id="confirm"
+            //                     required
+            //                     value={this.state.confirm}
+            //                     onChange={this.onChangeConfirm}
+            //                     name="confirm"
+            //                 />
+            //             </div>
+
+            //             <button onClick={this.register} className="btn btn-success">
+            //                 Register
+            //             </button>
+            //         </div>
+
+            // </div>
         );
+    }
+}
+
+const styles = {
+    textInput: {
+        width: "50%",
+        alignSelf:"center"
+    },
+    container: {
+        flex: 1,
+        alignSelf: "center",
+        alignItems: "center",
+        justifyContent: "center",
+        border: "1px solid black",
+        borderRadius: "20px",
+        padding: "5%",
+        width: "50%"
     }
 }
