@@ -6,6 +6,9 @@ module.exports = app => {
     // Create a new Event
     router.post("/", events.create);
 
+    router.post("/attend",events.attendEvent)
+
+    router.post("/unattend",events.unattendEvent)
     // Retrieve all Events
     router.get("/", events.findAll);
 
@@ -20,6 +23,7 @@ module.exports = app => {
 
     // Delete a Event with id
     router.delete("/:id", events.delete);
+
 
 
     app.use('/api/events', router);

@@ -4,9 +4,8 @@ class EventDataService {
     getAll() {
         return http.get("/events");
     }
-
-    get(id) {
-        return http.get(`/events/${id}`);
+    findAll() {
+        return http.get("/events");
     }
 
     create(data) {
@@ -17,16 +16,16 @@ class EventDataService {
         return http.put(`/events/${id}`, data);
     }
 
-    delete(id) {
-        return http.delete(`/events/${id}`);
+    attendEvent(data) {
+        return http.post("/events/attend",data);
     }
+    unattendEvent(data) {
+        return http.post("/events/unattend",data);
+    }
+
 
     deleteAll() {
         return http.delete(`/events`);
-    }
-
-    findByTitle(title) {
-        return http.get(`/events?title=${title}`);
     }
 }
 

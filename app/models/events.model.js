@@ -1,11 +1,20 @@
 
 module.exports = (sequelize, Sequelize) => {
-    const Event = sequelize.define("event", {
+    //const User = sequelize.import("./users.model")
+
+    const Event = sequelize.define("events", {
+
+        id: {
+          type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
         name: {
             type: Sequelize.STRING
         },
         userid: {
-          type: Sequelize.INTEGER
+          type: Sequelize.INTEGER,
+
         },
 
         description: {
@@ -35,6 +44,5 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.BOOLEAN
         }
     });
-
     return Event;
 };

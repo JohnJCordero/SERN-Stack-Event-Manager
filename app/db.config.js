@@ -4,7 +4,7 @@ module.exports = {
     PASSWORD: "123456",
     DB: "eventmanager",
     dialect: "mysql",
-    port:"3306",
+    port:"8080",
 
     pool: {
         max: 5,

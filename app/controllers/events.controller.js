@@ -1,7 +1,9 @@
+
 const db = require("../models/index");
 const Event = db.events;
 const Op = db.Sequelize.OP;
-
+const User = db.users;
+const attends = db.attends;
 // Create and Save a new event
 exports.create = (req, res) => {
 console.log(req)
@@ -18,6 +20,7 @@ console.log(req)
         start: req.body.start,
         end: req.body.end,
         address: req.body.address,
+        city: req.body.city,
         approved: req.body.approved
     };
 
@@ -32,13 +35,64 @@ console.log(req)
             });
         });
 };
+exports.attendEvent = (data) => {
+    return Event.findByPk(data.body.eventId)
+        .then ((event) => {
+
+        if(!event)
+        {
+            console.log("Event not found")
+            return null;
+        }
+
+        return User.findByPk(data.body.userId).then((user) => {
+            if(!user)
+            {
+                console.log("User not found")
+            }
+            event.addUser(user)
+            console.log(`Added User id=${user.id} to Event id=${event.id}`)
+            return event
+        });
+    })
+        .catch((err) => {
+            console.log("Error while adding User to Event:" , err)
+        })
+}
+
+
+exports.unattendEvent = (data) => {
+    return Event.findByPk(data.body.eventId)
+        .then ((event) => {
+            if(!event)
+            {
+                console.log("Event not found")
+                return null;
+            }
+
+            return User.findByPk(data.body.userId).then((user) => {
+                if(!user)
+                {
+                    console.log("User not found")
+                }
+
+                event.removeUser(user)
+                console.log(`Removed User id=${user.id} to Event id=${event.id}`)
+                return event
+            });
+        })
+        .catch((err) => {
+            console.log("Error while deleting User to Event:" , err)
+        })
+}
 
 // Retrieve all
 exports.findAll = (req, res) => {
     const userid = req.query.userid;
     const condition = userid ? {userid: {[Op.like]: `%${userid}%`}} : null;
-
-    Event.findAll({ where: condition })
+    Event.findAll({ include: [{
+        model: User
+        }] })
         .then(data => {
             res.send(data);
         })

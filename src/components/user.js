@@ -8,6 +8,10 @@ const EventRow = props => (
         <td>{props.events.start}</td>
         <td>{props.events.end}</td>
         <td>{props.events.address}</td>
+        <td>{props.events.city}</td>
+        <td>
+        <input value ={'attend'} type='button' onClick={() =>{props.attend(props.events.id,localStorage.getItem('userid'))}}/>
+        </td>
     </tr>
 )
 
@@ -19,12 +23,43 @@ export default class Users extends Component {
         this.refresh = this.refresh.bind(this);
 
         this.state = {
+            active: false,
             searchText: "",
             events: []
         };
 
 
 
+    }
+
+    onChangeActive = e =>{
+        this.setState({
+            active: !this.state.active
+        })
+    }
+    attend(eventId,userId)
+    {
+        const data = {
+            eventId: eventId,
+            userId: userId
+        }
+        EventDataService.attendEvent(data)
+            .then((res) =>{
+
+        }).catch((err) => console.log(err))
+    }
+
+    unattend(eventId,userId)
+    {
+
+        const data = {
+            eventId: eventId,
+            userId: userId
+        }
+        EventDataService.unattendEvent(data)
+            .then((res) =>{
+
+            }).catch((err) => console.log(err))
     }
 
     refresh(){
@@ -49,15 +84,28 @@ export default class Users extends Component {
     }
     search = (e) =>
      {
+         var today = new Date((new Date()).toString().substring(0,15));
          const t = this.state.searchText.toLowerCase()
-        return (e.name.toString().toLowerCase().indexOf(t) > -1) ||
+         return ((e.name.toString().toLowerCase().indexOf(t) > -1) ||
             (e.address.toString().toLowerCase().indexOf(t) > -1) ||
-            (e.description.toString().toLowerCase().indexOf(t) > -1);
+            (e.description.toString().toLowerCase().indexOf(t) > -1)) &&
+            ((this.state.active === true)?
+            (new Date(e.start)  > today) : true)
      }
     render() {
         return (
             <main className="container my-5">
                 <h1 className="text-primary text-center">Events</h1>
+                <div className="custom-control custom-switch">
+                    <input
+                        type="checkbox"
+                        className="custom-control-input"
+                        id="customSwitch1"
+                        value = {this.state.active}
+                        onChange={this.onChangeActive}
+                    />
+                    <label className="custom-control-label" htmlFor="customSwitch1">Active Events Only</label>
+                </div>
                 <input
                     type="text"
                     className="form-control"
@@ -75,13 +123,15 @@ export default class Users extends Component {
                         <th scope="col"> Start Date</th>
                         <th scope="col"> End Date</th>
                         <th scope="col"> Address </th>
+                        <th scope="col"> City </th>
+                        <th scope="col"> Actions </th>
                     </tr>
                     </thead>
                     <tbody>
                         {this.state.events.filter(this.search).map(events => {
                             return (
 
-                               <EventRow key={events.id} events = {events}/>
+                               <EventRow key={events.id}  events = {events}/>
                             );
                         })}
                     </tbody>

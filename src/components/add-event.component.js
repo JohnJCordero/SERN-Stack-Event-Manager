@@ -10,8 +10,8 @@ export default class AddEvent extends Component {
         this.onChangeStart = this.onChangeStart.bind(this);
         this.onChangeEnd = this.onChangeEnd.bind(this);
         this.onChangeAddress = this.onChangeAddress.bind(this)
+        this.onChangeCity = this.onChangeCity.bind(this)
         this.saveEvent = this.saveEvent.bind(this);
-        this.newEvent = this.newEvent.bind(this);
 
 
         this.state = {
@@ -23,6 +23,7 @@ export default class AddEvent extends Component {
             start:"",
             end:"",
             address:"",
+            city:"",
             submitted: false
         };
     }
@@ -61,6 +62,12 @@ export default class AddEvent extends Component {
         });
     }
 
+    onChangeCity(e) {
+        this.setState({
+            city: e.target.value
+        });
+    }
+
     saveEvent() {
         const data = {
             name: this.state.name,
@@ -69,7 +76,8 @@ export default class AddEvent extends Component {
             url: this.state.url,
             start: this.state.start,
             end: this.state.end,
-            address: this.state.address
+            address: this.state.address,
+            city: this.state.city
         };
 
         EventDataService.create(data)
@@ -83,6 +91,7 @@ export default class AddEvent extends Component {
                     start: response.data.start,
                     end: response.data.end,
                     address: response.data.address,
+                    city: response.data.city,
                     submitted: true
                 });
                 console.log(response.data);
@@ -92,18 +101,7 @@ export default class AddEvent extends Component {
             });
     }
 
-    newEvent() {
-        this.setState({
-            id: null,
-            name: "",
-            description: "",
-            url:"",
-            start:"",
-            end:"",
-            address:"",
-            approved: false
-        });
-    }
+
 
     render() {
         return (
@@ -188,6 +186,19 @@ export default class AddEvent extends Component {
                                 value={this.state.address}
                                 onChange={this.onChangeAddress}
                                 name="address"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="city">Event City</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="city"
+                                required
+                                value={this.state.city}
+                                onChange={this.onChangeCity}
+                                name="city"
                             />
                         </div>
 

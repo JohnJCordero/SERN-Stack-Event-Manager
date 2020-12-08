@@ -2,6 +2,7 @@ const db = require("../models/index");
 const User = db.users;
 const passport = require('passport');
 const Op = db.Sequelize.OP;
+const Event = db.events
 
 // Register a new user
 exports.create = (req, res) => {
@@ -32,6 +33,26 @@ exports.create = (req, res) => {
             });
         });
 };
+
+
+exports.findAll = (req, res) => {
+    const userid = req.query.userid;
+    const condition = userid ? {userid: {[Op.like]: `%${userid}%`}} : null;
+
+    User.findAll({  include: Event })
+        .then(data => {
+
+            res.send(data);
+
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving Events."
+            });
+        });
+};
+
 
  //Log in
 exports.login = (req, res) => {

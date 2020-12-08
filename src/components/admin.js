@@ -8,6 +8,8 @@ const EventRow = props => (
         <td>{props.events.start}</td>
         <td>{props.events.end}</td>
         <td>{props.events.address}</td>
+        <td>{props.events.city}</td>
+
     </tr>
 )
 
@@ -19,6 +21,7 @@ export default class Admins extends Component {
         this.refresh = this.refresh.bind(this);
 
         this.state = {
+            active: false,
             searchText: "",
             events: []
         };
@@ -39,7 +42,7 @@ export default class Admins extends Component {
     }
     onChangeActive = e =>{
         this.setState({
-            searchText: e.target.value
+            active: !this.state.active
         })
     }
     onChangeSearch = e =>{
@@ -53,11 +56,15 @@ export default class Admins extends Component {
     }
     search = (e) =>
     {
+        var today = new Date((new Date()).toString().substring(0,15));
         const t = this.state.searchText.toLowerCase()
-        return ((e.name.toString().toLowerCase().indexOf(t) > -1) ||
+        return (((e.name.toString().toLowerCase().indexOf(t) > -1) ||
             (e.address.toString().toLowerCase().indexOf(t) > -1) ||
             (e.description.toString().toLowerCase().indexOf(t) > -1)) &&
-            (e.userid == localStorage.getItem('userid'))
+            (e.userid == localStorage.getItem('userid'))  )&&
+            ((this.state.active === true)?
+            (new Date(e.start)  > today) : true)
+
     }
     render() {
         return (
@@ -92,6 +99,7 @@ export default class Admins extends Component {
                         <th scope="col"> Start Date</th>
                         <th scope="col"> End Date</th>
                         <th scope="col"> Address </th>
+                        <th scope="col"> City </th>
                     </tr>
                     </thead>
                     <tbody>

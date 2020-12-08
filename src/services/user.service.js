@@ -15,6 +15,10 @@ class UserDataService {
         return http.delete(`/users/${id}`);
     }
 
+    findAll() {
+        return http.get('/users')
+    }
+
 
 
 }
