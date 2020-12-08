@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import EventDataService from "../services/events.service";
+import UserDataService from "../services/user.service"
 
 export default class AddEvent extends Component {
     constructor(props) {
@@ -94,6 +95,17 @@ export default class AddEvent extends Component {
                     city: response.data.city,
                     submitted: true
                 });
+
+                const id =  localStorage.getItem('userid').toString()
+
+
+                const data = {
+
+                    status: 2
+                }
+
+                UserDataService.update(id,data)
+                localStorage.setItem("access",'2')
                 console.log(response.data);
             })
             .catch(e => {

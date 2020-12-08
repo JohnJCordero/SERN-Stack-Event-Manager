@@ -39,11 +39,13 @@ export default class Login extends Component {
 
         UserDataService.login(data)
             .then(response => {
-                if(response.status === (200))
-                     window.location.href = "/add"
 
-                console.log(response.data);
-                localStorage.setItem("userid", response.data.id);
+
+                    console.log(response.data);
+                    localStorage.setItem("userid", response.data.id);
+                    localStorage.setItem("access", response.data.access)
+                    window.location.href = "/add"
+
             })
             .catch(e => {
 

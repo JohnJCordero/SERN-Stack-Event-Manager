@@ -70,7 +70,7 @@ exports.login = (req, res) => {
        {
 
            return res.status(200).send(
-               {id: user.id}
+               {id: user.id,access:user.status}
            )}
        else
            {
@@ -85,7 +85,28 @@ exports.login = (req, res) => {
    })
 };
 
-
+exports.update = (req, res) => {
+    const id = req.params.id;
+    User.update(req.body, {
+        where: { id: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "User was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating User with id=" + id
+            });
+        });
+};
 // Delete by ID
 exports.delete = (req, res) => {
     const id = req.params.id;

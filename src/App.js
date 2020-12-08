@@ -13,66 +13,203 @@ import Superadmin from "./components/superadmin";
 
 class App extends Component {
   render() {
-    return (
-        <div>
-          <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <a href="/users" className="navbar-brand">
-              Event Manager
-            </a>
-            <div className="navbar-nav ">
-              <li className="nav-item">
-                  <Link to={"/users"} className="nav-link">
-                      Event List
-                  </Link>
-              </li>
-              <li className="nav-item">
-                  <Link to={"/add"} className="nav-link">
-                      Make An Event
-                  </Link>
-              </li>
-                <li className="nav-item">
-                    <Link to={"/admin"} className="nav-link">
-                        Admin
-                    </Link>
-                </li>
-                <li className="nav-item">
-                    <Link to={"/super"} className="nav-link">
-                        Super Admin
-                    </Link>
-                </li>
+      if(localStorage.getItem('access') == 1)
+      {
+          return (
 
-            </div>
+              <div>
+                  <nav className="navbar navbar-expand navbar-dark bg-dark">
+                      <a href="/users" className="navbar-brand">
+                          Event Manager
+                      </a>
+                      <div className="navbar-nav ">
+                          <li className="nav-item">
+                              <Link to={"/users"} className="nav-link">
+                                  Event List
+                              </Link>
+                          </li>
+                          <li className="nav-item">
+                              <Link to={"/add"} className="nav-link">
+                                  Make An Event
+                              </Link>
+                          </li>
+                      </div>
 
-              <div className="navbar-nav ml-auto">
-                  <li className="nav-item">
-                      <Link to={"/register"} className="nav-link">
-                          Register
-                      </Link>
-                  </li>
-                  <li className="nav-item">
-                      <Link to={"/login"} className="nav-link">
-                          Login
-                      </Link>
-                  </li>
+                      <div className="navbar-nav ml-auto">
+
+                          <li className="nav-item">
+                              <a className='nav-link' href="/" onClick={() => localStorage.removeItem('access')}>Logout</a>
+                          </li>
+                      </div>
+                  </nav>
+
+                  <div className="container mt-3">
+                      <Switch>
+
+                          <Route exact path="/add" component={AddEvent} />
+                          <Route exact path="/login" component={Login} />
+                          <Route exact path="/register" component={Register} />
+                          <Route exact path="/users" component={Users} />
+
+
+
+
+                      </Switch>
+                  </div>
               </div>
-          </nav>
+          );
+      }
+      if(localStorage.getItem('access') == 2)
+      {
+          return (
 
-          <div className="container mt-3">
-            <Switch>
+              <div>
+                  <nav className="navbar navbar-expand navbar-dark bg-dark">
+                      <a href="/users" className="navbar-brand">
+                          Event Manager
+                      </a>
+                      <div className="navbar-nav ">
+                          <li className="nav-item">
+                              <Link to={"/users"} className="nav-link">
+                                  Event List
+                              </Link>
+                          </li>
+                          <li className="nav-item">
+                              <Link to={"/add"} className="nav-link">
+                                  Make An Event
+                              </Link>
+                          </li>
+                          <li className="nav-item">
+                              <Link to={"/admin"} className="nav-link">
+                                  Admin
+                              </Link>
+                          </li>
 
-              <Route exact path="/add" component={AddEvent} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/users" component={Users} />
-              <Route exact path="/admin" component={Admins} />
-              <Route exact path="/super" component={Superadmin} />
+                      </div>
+
+
+                  </nav>
+
+                  <div className="container mt-3">
+                      <Switch>
+
+                          <Route exact path="/add" component={AddEvent} />
+                          <Route exact path="/login" component={Login} />
+                          <Route exact path="/register" component={Register} />
+                          <Route exact path="/users" component={Users} />
+                          <Route exact path="/admin" component={Admins} />
 
 
 
-            </Switch>
-          </div>
-        </div>
-    );
+
+                      </Switch>
+                  </div>
+              </div>
+          );
+      }
+      if(localStorage.getItem('access') == 3)
+      {
+          return (
+
+              <div>
+                  <nav className="navbar navbar-expand navbar-dark bg-dark">
+                      <a href="/users" className="navbar-brand">
+                          Event Manager
+                      </a>
+                      <div className="navbar-nav ">
+                          <li className="nav-item">
+                              <Link to={"/users"} className="nav-link">
+                                  Event List
+                              </Link>
+                          </li>
+                          <li className="nav-item">
+                              <Link to={"/add"} className="nav-link">
+                                  Make An Event
+                              </Link>
+                          </li>
+                          <li className="nav-item">
+                              <Link to={"/admin"} className="nav-link">
+                                  Admin
+                              </Link>
+                          </li>
+                          <li className="nav-item">
+                              <Link to={"/super"} className="nav-link">
+                                  Super Admin
+                              </Link>
+                          </li>
+
+                      </div>
+
+                      <div className="navbar-nav ml-auto">
+                          <li className="nav-item">
+                              <Link to={"/register"} className="nav-link">
+                                  Register
+                              </Link>
+                          </li>
+                          <li className="nav-item">
+                              <Link to={"/login"} className="nav-link">
+                                  Login
+                              </Link>
+                          </li>
+                      </div>
+                  </nav>
+
+                  <div className="container mt-3">
+                      <Switch>
+
+                          <Route exact path="/add" component={AddEvent} />
+                          <Route exact path="/login" component={Login} />
+                          <Route exact path="/register" component={Register} />
+                          <Route exact path="/users" component={Users} />
+                          <Route exact path="/admin" component={Admins} />
+                          <Route exact path="/super" component={Superadmin} />
+
+
+
+                      </Switch>
+                  </div>
+              </div>
+          );
+      }
+      else
+      {
+          return (
+
+              <div>
+                  <nav className="navbar navbar-expand navbar-dark bg-dark">
+                      <a href="/users" className="navbar-brand">
+                          Event Manager
+                      </a>
+
+
+                      <div className="navbar-nav ml-auto">
+                          <li className="nav-item">
+                              <Link to={"/register"} className="nav-link">
+                                  Register
+                              </Link>
+                          </li>
+                          <li className="nav-item">
+                              <Link to={"/login"} className="nav-link">
+                                  Login
+                              </Link>
+                          </li>
+                      </div>
+                  </nav>
+
+                  <div className="container mt-3">
+                      <Switch>
+
+                          <Route exact path="/login" component={Login} />
+                          <Route exact path="/register" component={Register} />
+                          <Route  path="/" component={Login} />
+
+                      </Switch>
+
+                  </div>
+              </div>
+          );
+      }
+
   }
 }
 
