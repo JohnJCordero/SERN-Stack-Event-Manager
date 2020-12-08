@@ -18,12 +18,11 @@ const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-
 db.events = require("../models/events.model")(sequelize, Sequelize);
 db.users = require("../models/users.model")(sequelize,Sequelize);
 db.users.hasMany(db.events,{foreignKey: 'userid'})
 db.events.belongsTo(db.users,{foreignKey: "userid"})
 db.events.belongsToMany(db.users,{ through:"attends"})
-db.users.belongsToMany(db.events,{ through:"attends"})
-
+db.users.belongsToMany(db.events,{ as:"attendedEvents",through:"attends"})
+db.sequelize.sync();
 module.exports = db;

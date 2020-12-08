@@ -3,7 +3,7 @@ const db = require("../models/index");
 const Event = db.events;
 const Op = db.Sequelize.OP;
 const User = db.users;
-const attends = db.attends;
+const attends = db.attendedEvents;
 // Create and Save a new event
 exports.create = (req, res) => {
 console.log(req)
@@ -59,6 +59,57 @@ exports.attendEvent = (data) => {
             console.log("Error while adding User to Event:" , err)
         })
 }
+exports.isAttending = (data) => {
+    return Event.findAll()
+        .then ((user) => {
+
+            if(!user)
+            {
+                console.log("User not found")
+            }
+
+            console.log(`Found User id=${user.id} attended events list`)
+            return user
+
+        })
+        .catch((err) => {
+            console.log("Error while finding User attended Event list:" , err)
+        })
+}
+exports.listAttendedEvents = (req,res) => {
+    const id = req.body.id;
+    User.findAll({
+
+                include: [{
+                    model: Event,
+                    required: true,
+                    as:"attendedEvents"
+
+                }],
+
+        where:{id: id}
+    }).then(user =>{
+        if(!user)
+            return res.status(400).send({
+                message:"Incorrect Username"
+            })
+
+            return res.status(200).send(
+                {user}
+            )
+
+
+            return res.status(400).send({
+                message: "Incorrect Password"
+            })
+
+    }).catch(err => {
+        res.status(400).send({
+            message: err.message
+        })
+    })
+
+}
 
 
 exports.unattendEvent = (data) => {
@@ -106,16 +157,7 @@ exports.findAll = (req, res) => {
 
 // Find by ID
 exports.findOne = (req, res) => {
-    const id = req.params.id;
-    Event.findByPk(id)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error while looking up by ID"
-            });
-        });
+
 };
 
 // Update by ID

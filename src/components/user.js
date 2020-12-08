@@ -10,7 +10,10 @@ const EventRow = props => (
         <td>{props.events.address}</td>
         <td>{props.events.city}</td>
         <td>
-        <input value ={'attend'} type='button' onClick={() =>{props.attend(props.events.id,localStorage.getItem('userid'))}}/>
+        <input value ={'Attend'} type='button' onClick={() =>{props.attend(props.events.id,localStorage.getItem('userid'))}}/>
+        </td>
+        <td>
+            <input value ={'Leave'} type='button' onClick={() =>{props.unattend(props.events.id,localStorage.getItem('userid'))}}/>
         </td>
     </tr>
 )
@@ -21,15 +24,30 @@ export default class Users extends Component {
 
         this.onChangeSearch = this.onChangeSearch.bind(this);
         this.refresh = this.refresh.bind(this);
-
+        this.onChangeStart = this.onChangeStart.bind(this);
+        this.onChangeEnd = this.onChangeEnd.bind(this);
         this.state = {
             active: false,
+            start:'',
+            end:'',
             searchText: "",
             events: []
         };
 
 
 
+    }
+
+    onChangeStart = (e) => {
+        this.setState({
+            start: e.target.value
+        });
+    }
+
+    onChangeEnd = (e) => {
+        this.setState({
+            end: e.target.value
+        });
     }
 
     onChangeActive = e =>{
@@ -84,13 +102,17 @@ export default class Users extends Component {
     }
     search = (e) =>
      {
-         var today = new Date((new Date()).toString().substring(0,15));
+         const today = new Date((new Date()).toString().substring(0,15));
+         const start = (this.state.start !== '') ? new Date(this.state.start)  <= new Date(e.start): true;
+         const end = (this.state.end !== '') ? new Date(this.state.end)  >= new Date(e.end): true;
          const t = this.state.searchText.toLowerCase()
-         return ((e.name.toString().toLowerCase().indexOf(t) > -1) ||
-            (e.address.toString().toLowerCase().indexOf(t) > -1) ||
-            (e.description.toString().toLowerCase().indexOf(t) > -1)) &&
-            ((this.state.active === true)?
-            (new Date(e.start)  > today) : true)
+         const search = ((e.city.toString().toLowerCase().indexOf(t) > -1) ||
+             (e.name.toString().toLowerCase().indexOf(t) > -1) ||
+             (e.address.toString().toLowerCase().indexOf(t) > -1) ||
+             (e.description.toString().toLowerCase().indexOf(t) > -1))
+         const activeButton = ((this.state.active === true)? (new Date(e.start)  <= today && new Date(e.end) > today) : true)
+         const dateSearch = (start && end)
+         return (search && activeButton   && dateSearch)
      }
     render() {
         return (
@@ -115,6 +137,28 @@ export default class Users extends Component {
                     onChange={this.onChangeSearch}
                     name="searchText"
                 /><br/>
+                <div className="form-group">
+                    <label htmlFor="start">Event Start Date</label>
+                    <input
+                        type="date"
+                        className="form-control"
+                        id="start"
+                        value={this.state.start}
+                        onChange={this.onChangeStart}
+                        name="start"
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="end">Event End Date</label>
+                    <input
+                        type="date"
+                        className="form-control"
+                        id="end"
+                        value={this.state.end}
+                        onChange={this.onChangeEnd}
+                        name="end"
+                    />
+                </div>
                 <table className="table table-dark">
                     <thead>
                     <tr>
@@ -131,7 +175,7 @@ export default class Users extends Component {
                         {this.state.events.filter(this.search).map(events => {
                             return (
 
-                               <EventRow key={events.id}  events = {events}/>
+                               <EventRow key={events.id}  attend = {this.attend} unattend = {this.unattend} events = {events}/>
                             );
                         })}
                     </tbody>

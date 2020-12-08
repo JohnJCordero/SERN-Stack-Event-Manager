@@ -19,9 +19,12 @@ export default class Admins extends Component {
 
         this.onChangeSearch = this.onChangeSearch.bind(this);
         this.refresh = this.refresh.bind(this);
-
+        this.onChangeStart = this.onChangeStart.bind(this);
+        this.onChangeEnd = this.onChangeEnd.bind(this);
         this.state = {
             active: false,
+            start: "",
+            end: "",
             searchText: "",
             events: []
         };
@@ -39,12 +42,27 @@ export default class Admins extends Component {
             }).catch(e => {
             console.log(e);
         });
+
     }
     onChangeActive = e =>{
         this.setState({
             active: !this.state.active
         })
+
     }
+
+    onChangeStart = (e) => {
+        this.setState({
+            start: e.target.value
+        });
+    }
+
+    onChangeEnd = (e) => {
+        this.setState({
+            end: e.target.value
+        });
+    }
+
     onChangeSearch = e =>{
         this.setState({
             searchText: e.target.value
@@ -56,14 +74,19 @@ export default class Admins extends Component {
     }
     search = (e) =>
     {
-        var today = new Date((new Date()).toString().substring(0,15));
+
+        const today = new Date((new Date()).toString().substring(0,15));
+        const start = (this.state.start !== '') ? new Date(this.state.start)  <= new Date(e.start): true;
+        const end = (this.state.end !== '') ? new Date(this.state.end)  >= new Date(e.end): true;
         const t = this.state.searchText.toLowerCase()
-        return (((e.name.toString().toLowerCase().indexOf(t) > -1) ||
-            (e.address.toString().toLowerCase().indexOf(t) > -1) ||
-            (e.description.toString().toLowerCase().indexOf(t) > -1)) &&
-            (e.userid == localStorage.getItem('userid'))  )&&
-            ((this.state.active === true)?
-            (new Date(e.start)  > today) : true)
+        const search = ((e.city.toString().toLowerCase().indexOf(t) > -1) ||
+                        (e.name.toString().toLowerCase().indexOf(t) > -1) ||
+                        (e.address.toString().toLowerCase().indexOf(t) > -1) ||
+                         (e.description.toString().toLowerCase().indexOf(t) > -1))
+        const activeButton = ((this.state.active === true)? (new Date(e.start)  <= today && new Date(e.end) > today) : true)
+        const user = (e.userid == localStorage.getItem('userid'))
+        const dateSearch = (start && end)
+        return (search && activeButton && user && dateSearch)
 
     }
     render() {
@@ -91,6 +114,29 @@ export default class Admins extends Component {
                     onChange={this.onChangeSearch}
                     name="searchText"
                 /><br/>
+
+                <div className="form-group">
+                    <label htmlFor="start">Event Start Date</label>
+                    <input
+                        type="date"
+                        className="form-control"
+                        id="start"
+                        value={this.state.start}
+                        onChange={this.onChangeStart}
+                        name="start"
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="end">Event End Date</label>
+                    <input
+                        type="date"
+                        className="form-control"
+                        id="end"
+                        value={this.state.end}
+                        onChange={this.onChangeEnd}
+                        name="end"
+                    />
+                </div>
                 <table className="table table-dark">
                     <thead>
                     <tr>

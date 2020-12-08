@@ -23,7 +23,13 @@ class EventDataService {
         return http.post("/events/unattend",data);
     }
 
+    isAttending(data){
+        return http.get('/events/isAttending', data)
+    }
 
+    listAttendedEvents(id){
+        return http.post(`/events/listAttendedEvents`,id)
+    }
     deleteAll() {
         return http.delete(`/events`);
     }

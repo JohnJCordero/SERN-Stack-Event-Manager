@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require("./app/models");
 
-db.sequelize.sync();
+
 
 
 require("./app/routes/events.routes")(app);

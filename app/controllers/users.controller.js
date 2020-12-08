@@ -36,19 +36,20 @@ exports.create = (req, res) => {
 
 
 exports.findAll = (req, res) => {
-    const userid = req.query.userid;
-    const condition = userid ? {userid: {[Op.like]: `%${userid}%`}} : null;
+    const userid = req.query.id;
+    const condition = userid ? {id: {[Op.like]: `%${userid}%`}} : null;
 
-    User.findAll({  include: Event })
+    User.findAll({ where: condition })
         .then(data => {
 
             res.send(data);
+            console.log(data)
 
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving Events."
+                    err.message || "Some error occurred while retrieving Users."
             });
         });
 };

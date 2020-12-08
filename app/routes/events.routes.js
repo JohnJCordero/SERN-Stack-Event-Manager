@@ -12,6 +12,10 @@ module.exports = app => {
     // Retrieve all Events
     router.get("/", events.findAll);
 
+    router.post('/listAttendedEvents',events.listAttendedEvents)
+
+    router.get('/isAttending',events.isAttending)
+
     // Retrieve all approved Events
     router.get("/published", events.findAllApproved);
 
