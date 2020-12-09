@@ -110,6 +110,7 @@ export default class Users extends Component {
          const t = this.state.searchText.toLowerCase()
          const search = ((e.city.toString().toLowerCase().indexOf(t) > -1) ||
              (e.name.toString().toLowerCase().indexOf(t) > -1) ||
+             (e.url.toString().toLowerCase().indexOf(t) > -1) ||
              (e.address.toString().toLowerCase().indexOf(t) > -1) ||
              (e.description.toString().toLowerCase().indexOf(t) > -1))
          const activeButton = ((this.state.active === true)? (new Date(e.start)  <= today && new Date(e.end) > today) : true)

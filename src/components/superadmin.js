@@ -139,6 +139,7 @@ export default class Superadmin extends Component {
         const t = this.state.searchText.toLowerCase()
         const search = ((e.user.username.toString().toLowerCase().indexOf(t) > -1) ||
             (e.city.toString().toLowerCase().indexOf(t) > -1) ||
+            (e.url.toString().toLowerCase().indexOf(t) > -1) ||
             (e.name.toString().toLowerCase().indexOf(t) > -1) ||
             (e.address.toString().toLowerCase().indexOf(t) > -1) ||
             (e.description.toString().toLowerCase().indexOf(t) > -1))
