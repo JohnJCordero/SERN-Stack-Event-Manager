@@ -44,7 +44,7 @@ export default class Login extends Component {
                     console.log(response.data);
                     localStorage.setItem("userid", response.data.id);
                     localStorage.setItem("access", response.data.access)
-                    window.location.href = "/add"
+                    window.location.href = "/users"
 
             })
             .catch(e => {
@@ -76,7 +76,7 @@ export default class Login extends Component {
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
                         <input
-                            type="text"
+                            type="password"
                             className="form-control"
                             id="password"
                             required

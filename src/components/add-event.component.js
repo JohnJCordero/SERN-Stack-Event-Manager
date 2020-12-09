@@ -69,6 +69,8 @@ export default class AddEvent extends Component {
         });
     }
 
+
+
     saveEvent() {
         const data = {
             name: this.state.name,
@@ -104,13 +106,21 @@ export default class AddEvent extends Component {
                     status: 2
                 }
 
-                UserDataService.update(id,data)
-                localStorage.setItem("access",'2')
-                console.log(response.data);
+                if(localStorage.getItem('access') < 3)
+                {
+                    UserDataService.update(id,data)
+                    localStorage.setItem("access",'2')
+                    console.log(response.data);
+                }
+
             })
             .catch(e => {
                 console.log(e);
             });
+             setTimeout(() => {
+                 window.location.href = '/users'
+        },1000)
+
     }
 
 
@@ -153,7 +163,7 @@ export default class AddEvent extends Component {
                         <div className="form-group">
                             <label htmlFor="url">Event Website URL</label>
                             <input
-                                type="text"
+                                type="url"
                                 className="form-control"
                                 id="url"
                                 required

@@ -84,7 +84,7 @@ export default class Register extends Component {
                         <div className="form-group">
                             <label htmlFor="password">Enter Password</label>
                             <input
-                                type="text"
+                                type="password"
                                 className="form-control"
                                 id="password"
                                 required
@@ -96,7 +96,7 @@ export default class Register extends Component {
                         <div className="form-group">
                             <label htmlFor="confirm">Confirm Password</label>
                             <input
-                                type="confirm"
+                                type="password"
                                 className="form-control"
                                 id="confirm"
                                 required

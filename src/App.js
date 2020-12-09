@@ -13,6 +13,8 @@ import Superadmin from "./components/superadmin";
 
 class App extends Component {
   render() {
+      document.body.style = 'background: #ADD8E6;';
+
       if(localStorage.getItem('access') == 1)
       {
           return (
@@ -50,6 +52,8 @@ class App extends Component {
                           <Route exact path="/login" component={Login} />
                           <Route exact path="/register" component={Register} />
                           <Route exact path="/users" component={Users} />
+                          <Route  path="/" component={Users} />
+
 
 
 
@@ -86,7 +90,12 @@ class App extends Component {
                           </li>
 
                       </div>
+                      <div className="navbar-nav ml-auto">
 
+                          <li className="nav-item">
+                              <a className='nav-link' href="/" onClick={() => localStorage.removeItem('access')}>Logout</a>
+                          </li>
+                      </div>
 
                   </nav>
 
@@ -140,16 +149,11 @@ class App extends Component {
 
                       </div>
 
+
                       <div className="navbar-nav ml-auto">
+
                           <li className="nav-item">
-                              <Link to={"/register"} className="nav-link">
-                                  Register
-                              </Link>
-                          </li>
-                          <li className="nav-item">
-                              <Link to={"/login"} className="nav-link">
-                                  Login
-                              </Link>
+                              <a className='nav-link' href="/" onClick={() => localStorage.removeItem('access')}>Logout</a>
                           </li>
                       </div>
                   </nav>

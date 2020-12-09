@@ -3,8 +3,10 @@ import EventDataService from "../services/events.service";
 
 const EventRow = props => (
     <tr>
+
         <td>{props.events.name}</td>
         <td>{props.events.description}</td>
+        <td><a href=''>{props.events.url}</a></td>
         <td>{props.events.start}</td>
         <td>{props.events.end}</td>
         <td>{props.events.address}</td>
@@ -164,6 +166,7 @@ export default class Users extends Component {
                     <tr>
                         <th scope="col"> Name</th>
                         <th scope="col"> Description</th>
+                        <th scope="col"> URL</th>
                         <th scope="col"> Start Date</th>
                         <th scope="col"> End Date</th>
                         <th scope="col"> Address </th>
